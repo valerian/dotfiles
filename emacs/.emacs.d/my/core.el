@@ -14,7 +14,7 @@
 (keyboard-translate ?\C-h ?\C-?)
 
 ;; rotating auto files backup within home subfolder
-(make-directory dir "~/.emacs_backups/")
+(make-directory "~/.emacs_backups/" t)
 (setq
    backup-by-copying t      ; don't clobber symlinks
    make-backup-files t
