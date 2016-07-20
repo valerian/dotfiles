@@ -56,7 +56,7 @@ zstyle ':completion:*' preserve-prefix '//[^/]##/'
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' word true
-zstyle :compinstall filename '/home/valerian/.zshrc'
+zstyle :compinstall filename '$HOME/.zshrc'
 
 autoload -Uz compinit
 compinit
@@ -78,10 +78,11 @@ alias fgfg=fg
 
 alias e=emacs
 
-alias session-1='dtach -A /home/valerian/.dtach/1 -z zsh'
-alias session-2='dtach -A /home/valerian/.dtach/2 -z zsh'
-alias session-3='dtach -A /home/valerian/.dtach/3 -z zsh'
-alias session-4='dtach -A /home/valerian/.dtach/4 -z zsh'
+mkdir -p '~/.dtach'
+alias session-1='dtach -A ~/.dtach/1 -z zsh'
+alias session-2='dtach -A ~/.dtach/2 -z zsh'
+alias session-3='dtach -A ~/.dtach/3 -z zsh'
+alias session-4='dtach -A ~/.dtach/4 -z zsh'
 
 alias ga='git add'
 alias gp='git push'
