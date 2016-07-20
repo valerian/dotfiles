@@ -56,7 +56,7 @@ zstyle ':completion:*' preserve-prefix '//[^/]##/'
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' word true
-zstyle :compinstall filename '$HOME/.zshrc'
+zstyle :compinstall filename ~/.zshrc
 
 autoload -Uz compinit
 compinit
@@ -78,7 +78,7 @@ alias fgfg=fg
 
 alias e=emacs
 
-mkdir -p '~/.dtach'
+mkdir -p ~/.dtach
 alias session-1='dtach -A ~/.dtach/1 -z zsh'
 alias session-2='dtach -A ~/.dtach/2 -z zsh'
 alias session-3='dtach -A ~/.dtach/3 -z zsh'
