@@ -1,6 +1,5 @@
 tide
-windmove
 smex
 web-mode
-company-mode
-flycheck
+company
+color-theme-sanityinc-tomorrow
