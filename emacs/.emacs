@@ -1,5 +1,5 @@
 (add-to-list 'load-path "~/.emacs.d/my/")
 (load-library "core")
 ;(load-library "theme")
-;(load-library "utils")
+;(load-library "util")
 ;(load-library "code")
