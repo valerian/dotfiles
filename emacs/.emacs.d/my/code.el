@@ -45,18 +45,49 @@
             (eldoc-mode +1)
             (electric-pair-mode +1)
             (electric-layout-mode +1)
+            (tide-hl-identifier-mode +1)
             (company-mode +1)
             (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
-(setq tide-tsserver-process-environment '("TSS_LOG=-level verbose -file /tmp/tss.log"))
-(setq tide-tsserver-executable "tsserver")
+(custom-set-variables
+ '(typescript-indent-level 2))
+(setq js-indent-level 2)
+
+;(setq tide-tsserver-process-environment '("TSS_LOG=-level verbose -file /tmp/tss.log"))
+;(setq tide-tsserver-executable "tsserver")
 (setq tide-format-options
       '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t
         :placeOpenBraceOnNewLineForFunctions nil
         :insertSpaceBeforeAndAfterBinaryOperators nil
         :tabSize 4
-        :indentSize 4))
+        :indentSize 2))
 
 ;; company-mode
 (global-set-key (kbd "M-'") 'company-complete)
 (setq company-tooltip-align-annotations t)
+
+;; Angular 2
+(require 'ng2-mode)
+(add-to-list 'auto-mode-alist '("\\.module.ts\\'" . ng2-ts-mode))
+
+;; SCSS mode hooks
+(add-hook 'scss-mode-hook
+          (lambda ()
+            (setq-default scss-compile-at-save nil)
+            ;(flycheck-mode +1)
+            (setq flycheck-check-syntax-automatically '(save mode-enabled))
+            (electric-pair-mode +1)
+            (electric-layout-mode +1)
+            (company-mode +1)
+            (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+
+
+(add-hook 'python-mode-hook
+          (lambda ()
+            (flycheck-mode +1)
+            (setq flycheck-check-syntax-automatically '(save mode-enabled))
+            (jedi:setup)
+            (company-jedi +1)
+            (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+
+

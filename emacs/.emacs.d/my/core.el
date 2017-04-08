@@ -71,6 +71,9 @@
 ;; highlight matching parentheses
 (show-paren-mode 1)
 
+;; line numbers mode
+(global-linum-mode 1)
+
 ;; same as "C-x o" but backwards
 (global-set-key (kbd "C-x p") 'previous-multiframe-window)
 
@@ -88,3 +91,6 @@
            (list (region-beginning) (region-end))
          (list (line-beginning-position) (line-beginning-position 2)))))
 
+
+;; comment or uncomment region
+(global-set-key (kbd "C-c C-c") 'comment-or-uncomment-region)
