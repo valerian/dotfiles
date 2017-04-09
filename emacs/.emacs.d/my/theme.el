@@ -1,3 +1,5 @@
+(use-package color-theme-sanityinc-tomorrow)
+
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'sanityinc-tomorrow-bright t)
 

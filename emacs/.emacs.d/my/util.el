@@ -1,8 +1,9 @@
 ;; windmove
-(when (fboundp 'windmove-default-keybindings)
-    (windmove-default-keybindings 'control))
+;(when (fboundp 'windmove-default-keybindings)
+;    (windmove-default-keybindings 'control))
 
 ;; smex
+(use-package smex)
 (global-set-key [(meta x)] (lambda ()
                              (interactive)
                              (or (boundp 'smex-cache)

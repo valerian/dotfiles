@@ -1,5 +1,17 @@
+;; flycheck
+(use-package flycheck)
+
+
+;; company-mode
+(use-package company)
+(use-package auto-complete)
+(global-set-key (kbd "M-'") 'company-complete)
+(setq company-tooltip-align-annotations t)
+
+
 ;; web-mode
-(require 'web-mode)
+(use-package web-mode)
+(use-package emmet-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
@@ -8,7 +20,6 @@
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2)
@@ -21,7 +32,6 @@
   (emmet-mode +1)
   )
 (add-hook 'web-mode-hook  'my-web-mode-hook)
-(require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
 (add-hook 'web-mode-hook
           (lambda ()
@@ -34,8 +44,14 @@
             )
           )
 
-;; typescript + tide + flycheck + company
-(require 'typescript-mode)
+
+;; Javascript
+(setq js-indent-level 2)
+
+
+;; Typescript
+(use-package typescript-mode)
+(use-package tide)
 (global-set-key (kbd "M-;") 'tide-rename-symbol)
 (add-hook 'typescript-mode-hook
           (lambda ()
@@ -48,13 +64,8 @@
             (tide-hl-identifier-mode +1)
             (company-mode +1)
             (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
-
 (custom-set-variables
  '(typescript-indent-level 2))
-(setq js-indent-level 2)
-
-;(setq tide-tsserver-process-environment '("TSS_LOG=-level verbose -file /tmp/tss.log"))
-;(setq tide-tsserver-executable "tsserver")
 (setq tide-format-options
       '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t
         :placeOpenBraceOnNewLineForFunctions nil
@@ -62,15 +73,16 @@
         :tabSize 4
         :indentSize 2))
 
-;; company-mode
-(global-set-key (kbd "M-'") 'company-complete)
-(setq company-tooltip-align-annotations t)
 
 ;; Angular 2
-(require 'ng2-mode)
+(use-package ng2-mode)
 (add-to-list 'auto-mode-alist '("\\.module.ts\\'" . ng2-ts-mode))
 
-;; SCSS mode hooks
+
+;; SCSS - SASS
+(use-package sass-mode)
+(use-package scss-mode)
+(use-package flymake-sass)
 (add-hook 'scss-mode-hook
           (lambda ()
             (setq-default scss-compile-at-save nil)
@@ -82,6 +94,9 @@
             (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
 
+;; Python
+(use-package company-jedi)
+(use-package jedi)
 (add-hook 'python-mode-hook
           (lambda ()
             (flycheck-mode +1)
