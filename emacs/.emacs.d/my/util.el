@@ -18,3 +18,11 @@
                                    (global-set-key [(shift meta x)] 'smex-major-mode-commands)
                                    (smex-major-mode-commands)))
 
+;; neotree
+(use-package neotree)
+(global-set-key [f8] 'neotree-toggle)
+
+;; bracketed paste
+(use-package bracketed-paste)
+(bracketed-paste-enable)
+

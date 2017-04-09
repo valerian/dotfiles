@@ -61,6 +61,7 @@
 
 ;; line numbers mode
 (global-linum-mode 1)
+(global-set-key (kbd "C-x l") 'linum-mode)
 
 ;; same as "C-x o" but backwards
 (global-set-key (kbd "C-x p") 'previous-multiframe-window)
@@ -82,3 +83,7 @@
 
 ;; comment or uncomment region
 (global-set-key (kbd "C-c C-c") 'comment-or-uncomment-region)
+
+;; toggle xterm mouse mode
+(global-set-key (kbd "C-x m") 'xterm-mouse-mode)
+
