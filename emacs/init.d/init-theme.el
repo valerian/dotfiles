@@ -1,7 +1,6 @@
-(req-package color-theme-sanityinc-tomorrow)
-
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'sanityinc-tomorrow-bright t)
+(req-package color-theme-sanityinc-tomorrow
+  :config
+  (load-theme 'sanityinc-tomorrow-bright t))
 
 (defun linum-format-func (line)
   (let ((w (length (number-to-string (count-lines (point-min) (point-max))))))
