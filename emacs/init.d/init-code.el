@@ -98,8 +98,10 @@
 
 
 ;; Python
+(req-package python-mode
+  :mode ("\\.py\\'" . python-mode))
 (req-package company-jedi
-    :require python-mode)
+  :require python-mode)
 (add-hook 'python-mode-hook
           (lambda ()
             (flycheck-mode +1)
