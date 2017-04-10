@@ -1,5 +1,5 @@
 ;; load path
-(add-to-list 'load-path "~/.emacs.d/load/")
+(add-to-list 'load-path "~/.emacs.d/init.d/")
 
 ;; package manager
 (require 'package)
@@ -13,7 +13,16 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+(unless (package-installed-p 'req-package)
+  (package-refresh-contents)
+  (package-install 'req-package))
 
 (require 'use-package)
-(setq use-package-always-ensure t)
+(require 'req-package)
 
+(require 'init-core)
+(require 'init-theme)
+(require 'init-util)
+(require 'init-code)
+
+(req-package-finish)

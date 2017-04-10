@@ -1,4 +1,4 @@
-(use-package color-theme-sanityinc-tomorrow)
+(req-package color-theme-sanityinc-tomorrow)
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'sanityinc-tomorrow-bright t)
@@ -16,3 +16,5 @@
 (custom-set-faces
  '(linum ((t (:background "#000000" :foreground "#333333" :underline nil :slant normal))))
  '(web-mode-html-tag-face ((t (:foreground "color-32")))))
+
+(provide 'init-theme)

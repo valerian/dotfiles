@@ -3,7 +3,7 @@
 ;    (windmove-default-keybindings 'control))
 
 ;; smex
-(use-package smex)
+(req-package smex)
 (global-set-key [(meta x)] (lambda ()
                              (interactive)
                              (or (boundp 'smex-cache)
@@ -19,10 +19,12 @@
                                    (smex-major-mode-commands)))
 
 ;; neotree
-(use-package neotree)
-(global-set-key [f8] 'neotree-toggle)
+(req-package neotree
+  :bind ([f8] . neotree-toggle))
 
 ;; bracketed paste
-(use-package bracketed-paste)
-(bracketed-paste-enable)
+(req-package bracketed-paste
+  :defer t
+  :config (bracketed-paste-enable))
 
+(provide 'init-util)

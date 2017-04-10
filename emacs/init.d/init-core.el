@@ -87,3 +87,4 @@
 ;; toggle xterm mouse mode
 (global-set-key (kbd "C-x m") 'xterm-mouse-mode)
 
+(provide 'init-core)
