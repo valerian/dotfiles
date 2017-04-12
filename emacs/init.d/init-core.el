@@ -59,9 +59,8 @@
 ;; highlight matching parentheses
 (show-paren-mode 1)
 
-;; line numbers mode
-(global-linum-mode 1)
-(global-set-key (kbd "C-x l") 'linum-mode)
+;; kill current buffer
+(global-set-key (kbd "C-x C-k") 'kill-this-buffer)
 
 ;; same as "C-x o" but backwards
 (global-set-key (kbd "C-x p") 'previous-multiframe-window)
@@ -80,11 +79,21 @@
            (list (region-beginning) (region-end))
          (list (line-beginning-position) (line-beginning-position 2)))))
 
-
 ;; comment or uncomment region
 (global-set-key (kbd "C-c C-c") 'comment-or-uncomment-region)
 
 ;; toggle xterm mouse mode
 (global-set-key (kbd "C-x m") 'xterm-mouse-mode)
+
+;; windmove
+(global-set-key (kbd "C-x <left>")  'windmove-left)
+(global-set-key (kbd "C-x <right>") 'windmove-right)
+(global-set-key (kbd "C-x <up>")    'windmove-up)
+(global-set-key (kbd "C-x <down>")  'windmove-down)
+
+;; easily switch buffers
+(global-set-key (kbd "C-S-<left>")  'previous-buffer)
+(global-set-key (kbd "C-S-<right>") 'next-buffer)
+
 
 (provide 'init-core)

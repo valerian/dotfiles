@@ -3,7 +3,6 @@
   :require python-mode
   :require typescript-mode)
 
-
 ;; company-mode
 (req-package company
   :require scss-mode
@@ -12,7 +11,6 @@
   :init
   (setq company-tooltip-align-annotations t)
   (global-set-key (kbd "M-'") 'company-complete))
-
 
 ;; web-mode
 (req-package web-mode
@@ -25,7 +23,6 @@
   :mode ("\\.djhtml\\'" . web-mode)
   :mode ("\\.html?\\'" . web-mode)
   :mode ("\\.tsx\\'" . web-mode))
-
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2)
@@ -38,15 +35,12 @@
   (emmet-mode +1))
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
-
 ;; emmet mode
 (req-package emmet-mode
   :require web-mode)
 
-
 ;; Javascript
 (setq js-indent-level 2)
-
 
 ;; Typescript
 (req-package typescript-mode
@@ -59,7 +53,7 @@
             (flycheck-mode +1)
             (setq flycheck-check-syntax-automatically '(save mode-enabled))
             (eldoc-mode +1)
-            (electric-pair-mode +1)
+            ;(electric-pair-mode +1)
             (electric-layout-mode +1)
             (tide-hl-identifier-mode +1)
             (company-mode +1)
@@ -74,14 +68,12 @@
         :tabSize 4
         :indentSize 2))
 
-
 ;; Angular 2
 (req-package ng2-mode
   :mode ("\\.module.ts\\'" . ng2-ts-mode)
   :mode ("\\.component.ts\\'" . ng2-ts-mode)
   :mode ("\\.service.ts\\'" . ng2-ts-mode)
   :mode ("\\.component.html\\'" . ng2-html-mode))
-
 
 ;; SCSS - SASS
 (req-package sass-mode
@@ -96,7 +88,6 @@
             (company-mode +1)
             (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
-
 ;; Python
 (req-package python-mode
   :mode ("\\.py\\'" . python-mode))
@@ -109,6 +100,5 @@
             (add-to-list 'company-backends 'company-jedi)
             (company-mode +1)            
             (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
-
 
 (provide 'init-code)
