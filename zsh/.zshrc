@@ -56,7 +56,7 @@ zstyle ':completion:*' preserve-prefix '//[^/]##/'
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' word true
-zstyle :compinstall filename ~/.zshrc
+zstyle :compinstall filename '/home/valerian/.zshrc'
 
 autoload -Uz compinit
 compinit
@@ -75,14 +75,9 @@ alias l='ls -CF'
 alias space='du -h --max-depth=1 | sort -hr'
 alias j=jobs
 alias fgfg=fg
-
-alias e=emacs
-
-mkdir -p ~/.dtach
-alias session-1='dtach -A ~/.dtach/1 -z zsh'
-alias session-2='dtach -A ~/.dtach/2 -z zsh'
-alias session-3='dtach -A ~/.dtach/3 -z zsh'
-alias session-4='dtach -A ~/.dtach/4 -z zsh'
+alias emacsl='emacs -q --load "~/.emacs.d/init_light.el"'
+alias e='emacsl'
+alias psg='ps ax | grep '
 
 alias ga='git add'
 alias gp='git push'
@@ -111,7 +106,6 @@ function google; {
         elinks "http://www.google.com/search?q=`url-encode "${(j: :)@}"`"
 }
 
-# find case insensitive string within files and directories names recursively
 function ff
 {
     if [ $# -lt 1 ]
@@ -125,7 +119,51 @@ function ff
     fi
 }
 
+function rsed
+{
+    if [ $# -lt 1 ]
+    then
+        echo "Recursive Sed usage: rsed SCRIPT [PATH]"
+    elif [ $# -eq 1 ]
+    then
+        find ./ -type f -exec sed -i ${(q)1} {} +
+    else
+        find ${(qq)2} -type f -exec sed -i ${(q)1} {} +
+    fi
+}
+
+function rsr
+{
+    if [ $# -lt 2 ]
+    then
+        echo "Recursive Search and Replace usage: rsr SEARCH REPLACE [PATH]"
+    elif [ $# -ge 2 ]
+    then
+        searchScript=s/$(echo ${(q)1} | sed 's/\//\\\//g')/$(echo ${(q)2} | sed 's/\//\\\//g')/g
+        if [ $# -eq 2 ]
+        then
+            find ./ -type f -exec sed -i $searchScript {} +
+        else
+            find ${(qq)3} -type f -exec sed -i $searchScript {} +
+        fi
+    fi
+}
+
+function most_useless_use_of_zsh {
+   local lines columns colour a b p q i pnew
+   ((columns=COLUMNS-1, lines=LINES-1, colour=0))
+   for ((b=-1.5; b<=1.5; b+=3.0/lines)) do
+       for ((a=-2.0; a<=1; a+=3.0/columns)) do
+           for ((p=0.0, q=0.0, i=0; p*p+q*q < 4 && i < 32; i++)) do
+               ((pnew=p*p-q*q+a, q=2*p*q+b, p=pnew))
+           done
+           ((colour=(i/4)%8))
+            echo -n "\\e[4${colour}m "
+        done
+        echo
+    done
+}
+
 case "$TERM" in
     xterm*) TERM=xterm-256color
 esac 
-
