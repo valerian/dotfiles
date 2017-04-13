@@ -60,8 +60,8 @@ zstyle :compinstall filename '/home/valerian/.zshrc'
 
 autoload -Uz compinit
 compinit
-# End of lines added by compinstall
 
+# aliases
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -92,20 +92,26 @@ alias gc='git checkout'
 alias gpu='git pull'
 alias gcl='git clone'
 
+alias sudo='sudo -i '
+alias sudou='command sudo '
+
 # copy with a progress bar.
 alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
 
-# URL encode something and print it.
-function url-encode; {
-        setopt extendedglob
-        echo "${${(j: :)@}//(#b)(?)/%$[[##16]##${match[1]}]}"
-}
+# disable annoying Ctrl-S flow freeze
+stty -ixon
 
-# Search google for the given keywords.
-function google; {
-        elinks "http://www.google.com/search?q=`url-encode "${(j: :)@}"`"
+# toggle sudo with Ctrl-S
+sudo-command-line() {
+    [[ -z $BUFFER ]] && zle up-history
+    if [[ $BUFFER == sudo\ * ]]; then
+        LBUFFER="${LBUFFER#sudo }"
+    fi
 }
+zle -N sudo-command-line
+bindkey "^s" sudo-command-line
 
+# Recursive case insensitive file/folder search
 function ff
 {
     if [ $# -lt 1 ]
@@ -119,6 +125,7 @@ function ff
     fi
 }
 
+# Recursive Sed
 function rsed
 {
     if [ $# -lt 1 ]
@@ -132,6 +139,7 @@ function rsed
     fi
 }
 
+# Recursive Search and Replace
 function rsr
 {
     if [ $# -lt 2 ]
@@ -149,7 +157,8 @@ function rsr
     fi
 }
 
-function most_useless_use_of_zsh {
+# Draws mandelbrot fractal
+function mandelbrot {
    local lines columns colour a b p q i pnew
    ((columns=COLUMNS-1, lines=LINES-1, colour=0))
    for ((b=-1.5; b<=1.5; b+=3.0/lines)) do
@@ -164,6 +173,7 @@ function most_useless_use_of_zsh {
     done
 }
 
+# trust me, my term supports 256 colors :)
 case "$TERM" in
     xterm*) TERM=xterm-256color
 esac 
