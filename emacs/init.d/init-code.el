@@ -101,4 +101,8 @@
             (company-mode +1)            
             (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
+;; php
+(req-package php-mode
+  :mode ("\\.php\\'" . php-mode))
+
 (provide 'init-code)
