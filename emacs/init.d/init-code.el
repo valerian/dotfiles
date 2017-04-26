@@ -105,4 +105,9 @@
 (req-package php-mode
   :mode ("\\.php\\'" . php-mode))
 
+;; yaml
+(req-package yaml-mode
+  :mode ("\\.yml\\'" . yaml-mode))
+
+
 (provide 'init-code)
