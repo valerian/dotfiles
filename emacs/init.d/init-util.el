@@ -37,7 +37,6 @@
 
 ;; bracketed paste
 (req-package bracketed-paste
-  :defer t
   :config (bracketed-paste-enable))
 
 (provide 'init-util)
