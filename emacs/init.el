@@ -26,5 +26,6 @@
 (require 'init-theme)
 (require 'init-util)
 (require 'init-code)
+;(require 'init-azerty)
 
 (req-package-finish)
