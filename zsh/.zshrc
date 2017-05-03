@@ -56,7 +56,7 @@ zstyle ':completion:*' preserve-prefix '//[^/]##/'
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' word true
-zstyle :compinstall filename '/home/valerian/.zshrc'
+zstyle :compinstall filename ~/.zshrc
 
 autoload -Uz compinit
 compinit
@@ -75,8 +75,7 @@ alias l='ls -CF'
 alias space='du -h --max-depth=1 | sort -hr'
 alias j=jobs
 alias fgfg=fg
-alias emacsl='emacs -q --load "~/.emacs.d/init_light.el"'
-alias e='emacsl'
+alias e='emacs'
 alias psg='ps ax | grep '
 
 alias ga='git add'
