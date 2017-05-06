@@ -1,3 +1,7 @@
+bindkey "e[3~" delete-char
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
+
 # Set up the prompt
 
 #autoload -Uz promptinit
