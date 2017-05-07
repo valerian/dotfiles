@@ -29,6 +29,8 @@
 (require 'init-theme)
 (require 'init-util)
 (require 'init-code)
+
+;; key bindings for AZERTY keyboards
 ;(require 'init-azerty)
 
 (req-package-finish)
