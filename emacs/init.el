@@ -8,7 +8,7 @@
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
-(package-initialize) 
+(package-initialize)
 
 ;(require 'benchmark-init)
 
@@ -20,8 +20,10 @@
   (package-install 'req-package))
 
 (require 'use-package)
+(setq use-package-always-ensure t)
 (require 'req-package)
 
+(require 'init-libraries)
 (require 'init-core)
 (require 'init-theme)
 (require 'init-util)

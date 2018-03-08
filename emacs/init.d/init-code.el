@@ -1,13 +1,8 @@
 ;; flycheck
-(req-package flycheck
-  :require python-mode
-  :require typescript-mode)
+(req-package flycheck)
 
 ;; company-mode
 (req-package company
-  :require scss-mode
-  :require python-mode
-  :require typescript-mode
   :init
   (setq company-tooltip-align-annotations t)
   (global-set-key (kbd "M-'") 'company-complete))
@@ -46,7 +41,7 @@
 (req-package typescript-mode
   :mode ("\\.ts\\'" . typescript-mode))
 (req-package tide
-  :require typescript-mode)
+  :require typescript-mode company)
 (add-hook 'typescript-mode-hook
           (lambda ()
             (tide-setup)
@@ -79,7 +74,8 @@
 (req-package sass-mode
   :mode ("\\.sass\\'" . sass-mode))
 (req-package scss-mode
-  :mode ("\\.scss\\'" . scss-mode))
+  :mode ("\\.scss\\'" . scss-mode)
+  :require company)
 (add-hook 'scss-mode-hook
           (lambda ()
             (setq-default scss-compile-at-save nil)
@@ -92,7 +88,7 @@
 (req-package python-mode
   :mode ("\\.py\\'" . python-mode))
 (req-package company-jedi
-  :require python-mode)
+  :require python-mode company)
 (add-hook 'python-mode-hook
           (lambda ()
             (flycheck-mode +1)
@@ -108,6 +104,15 @@
 ;; yaml
 (req-package yaml-mode
   :mode ("\\.yml\\'" . yaml-mode))
+
+;; paradox
+(req-package paradox
+  :ensure f
+  :require company
+  :mode ("/\\(STELLARIS\\|stellaris\\|Stellaris\\).*/common/.*\\.txt\\'" . paradox-mode))
+(add-hook 'paradox-mode-hook
+          (lambda ()
+            (company-mode +1)))
 
 
 (provide 'init-code)

@@ -1,0 +1,3 @@
+[submodule "emacs/libraries/paradox"]
+	path = emacs/libraries/paradox
+	url = https://github.com/Drup/paradox.el.git
