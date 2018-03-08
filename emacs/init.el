@@ -1,5 +1,8 @@
 ;; load path
-(add-to-list 'load-path "~/.emacs.d/init.d/")
+(add-to-list 'load-path (expand-file-name "init.d/" (file-name-directory load-file-name)))
+
+;; disable loading "default.el" at startup
+(setq inhibit-default-init t)
 
 ;; package manager
 (require 'package)
@@ -28,6 +31,8 @@
 (require 'init-theme)
 (require 'init-util)
 (require 'init-code)
+
+;; key bindings for AZERTY keyboards
 ;(require 'init-azerty)
 
 (req-package-finish)
