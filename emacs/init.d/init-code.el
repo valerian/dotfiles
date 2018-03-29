@@ -114,5 +114,9 @@
           (lambda ()
             (company-mode +1)))
 
+(req-package smali-mode
+  :ensure f
+  :mode ("\\.smali\\'" . smali-mode))
+
 
 (provide 'init-code)

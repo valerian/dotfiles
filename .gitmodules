@@ -1,3 +1,6 @@
 [submodule "emacs/libraries/paradox"]
 	path = emacs/libraries/paradox
 	url = https://github.com/Drup/paradox.el.git
+[submodule "emacs/libraries/Emacs-Smali"]
+	path = emacs/libraries/Emacs-Smali
+	url = https://github.com/strazzere/Emacs-Smali
