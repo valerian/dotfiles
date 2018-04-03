@@ -1,3 +1,7 @@
+;; c-style indentation defaults
+(setq c-default-style "k&r"
+      c-basic-offset 4)
+
 ;; flycheck
 (req-package flycheck)
 
