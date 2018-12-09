@@ -1,3 +1,80 @@
+;; ws-butler (an unobtrusive way to trim spaces from end of line)
+(req-package ws-butler
+  :defer 1
+  :config
+  (ws-butler-global-mode 1))
+
+;; volatile-highlight (highlight recent changes)
+(req-package volatile-highlights
+  :defer 1
+  :config
+  (volatile-highlights-mode 1))
+
+;; ivy mode
+(req-package ivy
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  (global-set-key "\C-s" 'swiper)
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+  (global-set-key (kbd "<f6>") 'ivy-resume)
+  (define-key ivy-mode-map (kbd "M-x") 'counsel-M-x)
+  (define-key ivy-mode-map (kbd "C-x C-f") 'counsel-find-file)
+  (define-key ivy-mode-map (kbd "<f1> f") 'counsel-describe-function)
+  (define-key ivy-mode-map (kbd "<f1> v") 'counsel-describe-variable)
+  (define-key ivy-mode-map (kbd "<f1> l") 'counsel-find-library)
+  (define-key ivy-mode-map (kbd "<f2> i") 'counsel-info-lookup-symbol)
+  (define-key ivy-mode-map (kbd "<f2> u") 'counsel-unicode-char))
+
+;; projectile mode
+(req-package projectile
+  :after (ivy)
+  :config
+  (setq projectile-indexing-method 'hybrid)
+  (setq projectile-globally-ignored-files
+        '(".editorconfig" ".eslintignore" ".eslintrc" ".git" ".gitignore"
+          ".projectile" ".sailsrc" ".tern-port" ".tern-project" ".tmp"
+          "README.md" "package.json" "package-lock.json"))
+  (projectile-mode 1)
+  (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+(req-package counsel-projectile
+  :after (ivy projectile)
+  :config
+  (counsel-projectile-mode 1)
+  (global-set-key (kbd "C-x C-b") 'counsel-projectile))
+
+;; tabs bar
+(req-package tabbar
+  :defer 1
+  :config
+  (tabbar-mode)
+  (set-face-attribute
+   'tabbar-default nil
+   :background "gray20"
+   :foreground "gray50")
+  (set-face-attribute
+   'tabbar-unselected nil
+   :background "gray30"
+   :foreground "white")
+  (set-face-attribute
+   'tabbar-selected nil
+   :background "gray75"
+   :foreground "black")
+  (set-face-attribute
+   'tabbar-highlight nil
+   :background "white"
+   :foreground "black"
+   :underline nil)
+  (set-face-attribute
+   'tabbar-button nil)
+  (set-face-attribute
+   'tabbar-separator nil
+   :background "gray20")
+  (custom-set-variables
+   '(tabbar-separator (quote (1)))))
+
 ;; undo tree
 (req-package undo-tree
   :config
@@ -5,38 +82,27 @@
   (global-set-key (kbd "C-.") 'undo-tree-redo))
 
 ;; line numbers mode
+(defun my-nlinum-mode-hook ()
+  (when nlinum-mode
+    (setq-local nlinum-format
+                (concat "%" (number-to-string
+                             ;; Guesstimate number of buffer lines.
+                             (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
+                        "d│"))))
 (req-package nlinum
   :config
   (global-nlinum-mode 1)
-  (global-set-key (kbd "C-x l") 'nlinum-mode))
-
-;; smex
-(req-package smex
-  :config
-  (global-set-key
-   [(meta x)]
-   (lambda ()
-     (interactive)
-     (or (boundp 'smex-cache)
-         (smex-initialize))
-     (global-set-key [(meta x)] 'smex)
-     (smex)))
-  (global-set-key
-   [(shift meta x)]
-   (lambda ()
-     (interactive)
-     (or (boundp 'smex-cache)
-         (smex-initialize))
-     (global-set-key [(shift meta x)] 'smex-major-mode-commands)
-     (smex-major-mode-commands))))
+  (global-set-key (kbd "C-x l") 'nlinum-mode)
+  (add-hook 'nlinum-mode-hook #'my-nlinum-mode-hook))
 
 ;; neotree
 (req-package neotree
-  :defer t
+  :defer 1
   :bind ([f8] . neotree-toggle))
 
 ;; bracketed paste
 (req-package bracketed-paste
+  :defer 2
   :config (bracketed-paste-enable))
 
 ;; move region with M-up and M-down
@@ -62,7 +128,6 @@
 
 (global-set-key (kbd "M-<up>") 'move-region-up)
 (global-set-key (kbd "M-<down>") 'move-region-down)
-
 
 (provide 'init-util)
 

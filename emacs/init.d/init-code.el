@@ -12,16 +12,6 @@
   (global-set-key (kbd "M-'") 'company-complete))
 
 ;; web-mode
-(req-package web-mode
-  :mode ("\\.phtml\\'" . web-mode)
-  :mode ("\\.tpl\\.php\\'" . web-mode)
-  :mode ("\\.[agj]sp\\'" . web-mode)
-  :mode ("\\.as[cp]x\\'" . web-mode)
-  :mode ("\\.erb\\'" . web-mode)
-  :mode ("\\.mustache\\'" . web-mode)
-  :mode ("\\.djhtml\\'" . web-mode)
-  :mode ("\\.html?\\'" . web-mode)
-  :mode ("\\.tsx\\'" . web-mode))
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2)
@@ -32,20 +22,61 @@
   (setq web-mode-enable-auto-quoting t)
   (setq web-mode-enable-auto-opening t)
   (emmet-mode +1))
-(add-hook 'web-mode-hook  'my-web-mode-hook)
+(req-package web-mode
+  :mode ("\\.phtml\\'" . web-mode)
+  :mode ("\\.tpl\\.php\\'" . web-mode)
+  :mode ("\\.[agj]sp\\'" . web-mode)
+  :mode ("\\.as[cp]x\\'" . web-mode)
+  :mode ("\\.erb\\'" . web-mode)
+  :mode ("\\.mustache\\'" . web-mode)
+  :mode ("\\.djhtml\\'" . web-mode)
+  :mode ("\\.html?\\'" . web-mode)
+  :mode ("\\.tsx\\'" . web-mode)
+  :config
+  (add-hook 'web-mode-hook 'my-web-mode-hook))
 
 ;; emmet mode
 (req-package emmet-mode
-  :require web-mode)
+  :defer 1
+  :after web-mode)
 
 ;; Javascript
 (setq js-indent-level 2)
+(setq js2-basic-offset 2)
+(req-package js2-mode
+  :mode ("\\.js\\'" . js2-mode))
+(add-hook 'js2-mode-hook
+          (lambda ()
+            (js2-refactor-mode +1)
+            (js2r-add-keybindings-with-prefix "C-c C-r")
+            (add-to-list 'company-backends 'company-tern)
+            (tern-mode)
+            (company-mode)
+            ))
+(req-package js2-refactor
+  :defer 1
+  :after js2-mode)
+(req-package company-tern
+  :defer t
+  :after company)
+
+;; Javascript: React
+(req-package rjsx-mode
+  :mode ("\\.jsx\\'" . rjsx-mode))
+(add-hook 'rjsx-mode-hook
+          (lambda ()
+            (emmet-mode +1)
+            (add-to-list 'company-backends 'company-tern)
+            (tern-mode)
+            (company-mode)
+            ))
+
 
 ;; Typescript
 (req-package typescript-mode
   :mode ("\\.ts\\'" . typescript-mode))
 (req-package tide
-  :require typescript-mode company)
+  :after (typescript-mode company))
 (add-hook 'typescript-mode-hook
           (lambda ()
             (tide-setup)
@@ -79,27 +110,19 @@
   :mode ("\\.sass\\'" . sass-mode))
 (req-package scss-mode
   :mode ("\\.scss\\'" . scss-mode)
-  :require company)
-(add-hook 'scss-mode-hook
-          (lambda ()
-            (setq-default scss-compile-at-save nil)
-            (electric-pair-mode +1)
-            (electric-layout-mode +1)
-            (company-mode +1)
-            (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+  :after company
+  :config
+  (add-hook 'scss-mode-hook
+            (lambda ()
+              (setq-default scss-compile-at-save nil)
+              (electric-pair-mode +1)
+              (electric-layout-mode +1)
+              (company-mode +1)
+              (add-to-list 'write-file-functions 'delete-trailing-whitespace))))
 
 ;; Python
 (req-package python-mode
   :mode ("\\.py\\'" . python-mode))
-(req-package company-jedi
-  :require python-mode company)
-(add-hook 'python-mode-hook
-          (lambda ()
-            (flycheck-mode +1)
-            (setq flycheck-check-syntax-automatically '(save mode-enabled))
-            (add-to-list 'company-backends 'company-jedi)
-            (company-mode +1)            
-            (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
 ;; php
 (req-package php-mode
@@ -112,7 +135,7 @@
 ;; paradox
 (req-package paradox
   :ensure f
-  :require company
+  :after company
   :mode ("/\\(STELLARIS\\|stellaris\\|Stellaris\\).*/common/.*\\.txt\\'" . paradox-mode))
 (add-hook 'paradox-mode-hook
           (lambda ()

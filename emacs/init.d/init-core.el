@@ -16,9 +16,6 @@
 ;; no auto-save
 (setq auto-save-default nil)
 
-;; autocomplete menus
-(icomplete-mode 99)
-
 ;; no startup message
 (setq inhibit-startup-message t)
 
@@ -65,6 +62,9 @@
 ;; same as "C-x o" but backwards
 (global-set-key (kbd "C-x p") 'previous-multiframe-window)
 
+;; org-mode tweaks
+(setq org-startup-indented t)
+
 ;; copy region uses current line if no region
 (put 'kill-ring-save 'interactive-form
      '(interactive
@@ -94,6 +94,7 @@
 ;; easily switch buffers
 (global-set-key (kbd "C-S-<left>")  'previous-buffer)
 (global-set-key (kbd "C-S-<right>") 'next-buffer)
-
+(global-unset-key (kbd "C-x <C-left>"))
+(global-unset-key (kbd "C-x <C-right>"))
 
 (provide 'init-core)

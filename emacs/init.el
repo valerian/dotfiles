@@ -27,10 +27,12 @@
 (require 'req-package)
 
 (require 'init-libraries)
+
 (require 'init-core)
-(require 'init-theme)
+
 (require 'init-util)
 (require 'init-code)
+(require 'init-theme)
 
 ;; key bindings for AZERTY keyboards
 ;(require 'init-azerty)
