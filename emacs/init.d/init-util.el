@@ -1,6 +1,14 @@
+;; smart-mode-line
+(req-package smart-mode-line
+  :defer 1
+  :init
+  (setq sml/no-confirm-load-theme t)
+  (setq sml/theme 'dark)
+  :config
+  (sml/setup))
+
 ;; ws-butler (an unobtrusive way to trim spaces from end of line)
 (req-package ws-butler
-  :defer 1
   :config
   (ws-butler-global-mode 1))
 

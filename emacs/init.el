@@ -10,6 +10,10 @@
              '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
+;; disable installed packages tracking (it's polluting init.el for no valid reason)
+(defun package--save-selected-packages (&rest opt) nil)
+
+;; benchmark
 ;(require 'benchmark-init)
 
 (unless (package-installed-p 'use-package)
@@ -24,9 +28,7 @@
 (require 'req-package)
 
 (require 'init-libraries)
-
 (require 'init-core)
-
 (require 'init-util)
 (require 'init-code)
 (require 'init-theme)

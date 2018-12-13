@@ -84,6 +84,7 @@ alias psg='ps ax | grep '
 
 alias ga='git add'
 alias gp='git push'
+alias gpt='git push --tags'
 alias gl='git lg'
 alias gs='git status'
 alias gd='git diff'
