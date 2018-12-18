@@ -66,6 +66,8 @@ autoload -Uz compinit
 compinit
 
 # aliases
+alias zshrc='emacs ~/.zshrc'
+
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -116,6 +118,17 @@ sudo-command-line() {
 }
 zle -N sudo-command-line
 bindkey "^s" sudo-command-line
+
+# npm start or run
+function npr
+{
+    if [ $# -lt 1 ]
+    then
+        npm start
+    else
+        npm run $*
+    fi
+}
 
 # Recursive case insensitive file/folder search
 function ff
@@ -179,7 +192,13 @@ function mandelbrot {
     done
 }
 
+
 # trust me, my term supports 256 colors :)
 case "$TERM" in
     xterm*) TERM=xterm-256color
 esac 
+
+if [ -f ~/.zshrc_local ]
+then
+   source ~/.zshrc_local
+fi
