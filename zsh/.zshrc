@@ -1,6 +1,26 @@
+# key bindings
 bindkey "e[3~" delete-char
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
+# ----
+bindkey "\e[1~" beginning-of-line
+bindkey "\e[4~" end-of-line
+bindkey "\e[5~" beginning-of-history
+bindkey "\e[6~" end-of-history
+bindkey "\e[3~" delete-char
+bindkey "\e[2~" quoted-insert
+bindkey "\e[5C" forward-word
+bindkey "\eOc" emacs-forward-word
+bindkey "\e[5D" backward-word
+bindkey "\eOd" emacs-backward-word
+bindkey "\ee[C" forward-word
+bindkey "\ee[D" backward-word
+# for rxvt
+bindkey "\e[8~" end-of-line
+bindkey "\e[7~" beginning-of-line
+# for non RH/Debian xterm, can't hurt for RH/DEbian xterm
+bindkey "\eOH" beginning-of-line
+bindkey "\eOF" end-of-line
 
 # Set up the prompt
 
@@ -77,6 +97,8 @@ alias ls='ls --color=auto'
 alias ll='ls -l'
 alias la='ls -A'
 alias lla='ls -lA'
+alias llh='ls -lh'
+alias llah='ls -lah'
 alias l='ls -CF'
 alias space='du -h --max-depth=1 | sort -hr'
 alias j=jobs
@@ -103,6 +125,26 @@ alias sudou='command sudo '
 
 # copy with a progress bar.
 alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
+
+function command-exists { command -v $1 >/dev/null 2>&1 }
+
+# live auto refreshing server (need npm install live-server)
+if [ `command -v live-server 2>/dev/null` ]
+then
+    alias serve="live-server --host=0.0.0.0"
+fi
+
+# Cygwin only
+if [ `uname -s | fgrep -i cygwin` ]
+then
+    alias ccd='cd $(cygpath -u "$1" 2>/dev/null)'
+
+    if [ $DISPLAY ] && [ `command -v xset 2>/dev/null` ]
+    then
+        # higher keyboard speed in X environment
+        xset r rate 150 100 >/dev/null 2>&1
+    fi
+fi
 
 # disable annoying Ctrl-S flow freeze
 stty -ixon

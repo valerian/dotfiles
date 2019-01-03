@@ -48,10 +48,12 @@
 (add-hook 'js2-mode-hook
           (lambda ()
             (js2-refactor-mode +1)
+            (define-key js2-refactor-mode-map (kbd "C-x C-r") 'js2r-rename-var)
             (js2r-add-keybindings-with-prefix "C-c C-r")
             (add-to-list 'company-backends 'company-tern)
             (tern-mode)
             (company-mode)
+            (electric-pair-mode +1)
             ))
 (req-package js2-refactor
   :defer 1
@@ -69,6 +71,7 @@
             (add-to-list 'company-backends 'company-tern)
             (tern-mode)
             (company-mode)
+            (electric-pair-mode +1)
             ))
 
 
