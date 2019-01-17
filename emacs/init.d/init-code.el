@@ -9,7 +9,9 @@
 (req-package company
   :init
   (setq company-tooltip-align-annotations t)
-  (global-set-key (kbd "M-'") 'company-complete))
+  (global-set-key (kbd "M-'") 'company-complete)
+  (cheatsheet-add :group "Utils" :key "M-'" :description "Autocomplete menu (company-mode).")
+)
 
 ;; web-mode
 (defun my-web-mode-hook ()
@@ -21,6 +23,7 @@
   (setq web-mode-enable-auto-pairing t)
   (setq web-mode-enable-auto-quoting t)
   (setq web-mode-enable-auto-opening t)
+  (company-mode +1)
   (emmet-mode +1))
 (req-package web-mode
   :mode ("\\.phtml\\'" . web-mode)
@@ -32,13 +35,16 @@
   :mode ("\\.djhtml\\'" . web-mode)
   :mode ("\\.html?\\'" . web-mode)
   :mode ("\\.tsx\\'" . web-mode)
+  :mode ("\\.css\\'" . web-mode)
   :config
   (add-hook 'web-mode-hook 'my-web-mode-hook))
 
 ;; emmet mode
 (req-package emmet-mode
   :defer 1
-  :after web-mode)
+  :after web-mode
+  :config
+  (cheatsheet-add :group "HTML" :key "C-j" :description "Expand Emmet snippet."))
 
 ;; Javascript
 (setq js-indent-level 2)
@@ -49,6 +55,7 @@
           (lambda ()
             (js2-refactor-mode +1)
             (define-key js2-refactor-mode-map (kbd "C-x C-r") 'js2r-rename-var)
+            (cheatsheet-add :group "Javascript" :key "C-x C-r" :description "Refactor rename variable.")
             (js2r-add-keybindings-with-prefix "C-c C-r")
             (add-to-list 'company-backends 'company-tern)
             (tern-mode)

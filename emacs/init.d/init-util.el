@@ -29,11 +29,12 @@
   (global-set-key (kbd "<f6>") 'ivy-resume)
   (define-key ivy-mode-map (kbd "M-x") 'counsel-M-x)
   (define-key ivy-mode-map (kbd "C-x C-f") 'counsel-find-file)
-  (define-key ivy-mode-map (kbd "<f1> f") 'counsel-describe-function)
-  (define-key ivy-mode-map (kbd "<f1> v") 'counsel-describe-variable)
-  (define-key ivy-mode-map (kbd "<f1> l") 'counsel-find-library)
-  (define-key ivy-mode-map (kbd "<f2> i") 'counsel-info-lookup-symbol)
-  (define-key ivy-mode-map (kbd "<f2> u") 'counsel-unicode-char))
+  ;(define-key ivy-mode-map (kbd "<f1> f") 'counsel-describe-function)
+  ;(define-key ivy-mode-map (kbd "<f1> v") 'counsel-describe-variable)
+  ;(define-key ivy-mode-map (kbd "<f1> l") 'counsel-find-library)
+  ;(define-key ivy-mode-map (kbd "<f2> i") 'counsel-info-lookup-symbol)
+  ;(define-key ivy-mode-map (kbd "<f2> u") 'counsel-unicode-char)
+  )
 
 ;; projectile mode
 (req-package projectile
@@ -87,7 +88,8 @@
 (req-package undo-tree
   :config
   (global-undo-tree-mode)
-  (global-set-key (kbd "C-.") 'undo-tree-redo))
+  (global-set-key (kbd "C-.") 'undo-tree-redo)
+  (cheatsheet-add :group "Utils" :key "C-x u" :description "Visualize the undo tree."))
 
 ;; line numbers mode
 (defun my-nlinum-mode-hook ()
@@ -101,12 +103,15 @@
   :config
   (global-nlinum-mode 1)
   (global-set-key (kbd "C-x l") 'nlinum-mode)
+  (cheatsheet-add :group "Utils" :key "C-x l" :description "Toggle nlinum-mode (Line Numbers).")
   (add-hook 'nlinum-mode-hook #'my-nlinum-mode-hook))
 
 ;; neotree
 (req-package neotree
   :defer 1
-  :bind ([f8] . neotree-toggle))
+  :bind ([f8] . neotree-toggle)
+  :config
+  (cheatsheet-add :group "Utils" :key "[f8]" :description "Toggle neotree side menu."))
 
 ;; bracketed paste
 (req-package bracketed-paste
@@ -136,6 +141,9 @@
 
 (global-set-key (kbd "M-<up>") 'move-region-up)
 (global-set-key (kbd "M-<down>") 'move-region-down)
+
+(cheatsheet-add :group "Core" :key "M-<up>" :description "Move region or current line up.")
+(cheatsheet-add :group "Core" :key "M-<down>" :description "Move region or current line down.")
 
 (provide 'init-util)
 
