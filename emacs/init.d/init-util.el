@@ -113,6 +113,18 @@
   :config
   (cheatsheet-add :group "Utils" :key "[f8]" :description "Toggle neotree side menu."))
 
+;; multiple cursors
+(req-package multiple-cursors
+  :config
+  (global-set-key (kbd "C-x C-=") 'mc/edit-lines)
+  (global-set-key (kbd "C-=") 'mc/mark-next-like-this-symbol)
+  (global-set-key (kbd "C--") 'mc/mark-previous-like-this-symbol)
+  (global-set-key (kbd "C-+") 'mc/mark-all-like-this)
+  (cheatsheet-add :group "Multiple Cursors" :key "C-x C-=" :description "Add cursor for all lines in region.")
+  (cheatsheet-add :group "Multiple Cursors" :key "C-=" :description "Add cursor for next similar to symbol or region.")
+  (cheatsheet-add :group "Multiple Cursors" :key "C--" :description "Add cursor for previous similar to symbol or region.")
+  (cheatsheet-add :group "Multiple Cursors" :key "C-+" :description "Add cursor for all similar to region."))
+
 ;; bracketed paste
 (req-package bracketed-paste
   :defer 2
