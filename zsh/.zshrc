@@ -33,6 +33,9 @@ PS1="%{$fg[red]%}%n%{$reset_color%}@%{$fg[cyan]%}%m %{$fg[yellow]%}%~ %{$reset_c
 
 setopt histignorealldups sharehistory
 
+# pushes the old directory onto the stack
+setopt AUTO_PUSHD
+
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
@@ -80,6 +83,9 @@ zstyle ':completion:*' preserve-prefix '//[^/]##/'
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' word true
+
+zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
+
 zstyle :compinstall filename ~/.zshrc
 
 autoload -Uz compinit
