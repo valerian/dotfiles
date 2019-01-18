@@ -91,6 +91,11 @@ zstyle :compinstall filename ~/.zshrc
 autoload -Uz compinit
 compinit
 
+if [ -d "$HOME/bin" ]
+then
+    PATH="$HOME/bin:$PATH"
+fi
+
 # aliases
 alias zshrc='emacs ~/.zshrc'
 
