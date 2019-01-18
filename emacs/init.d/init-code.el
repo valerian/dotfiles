@@ -7,6 +7,7 @@
 
 ;; company-mode
 (req-package company
+  :after (cheatsheet)
   :init
   (setq company-tooltip-align-annotations t)
   (global-set-key (kbd "M-'") 'company-complete)
@@ -42,7 +43,7 @@
 ;; emmet mode
 (req-package emmet-mode
   :defer 1
-  :after web-mode
+  :after (web-mode cheatsheet)
   :config
   (cheatsheet-add :group "HTML" :key "C-j" :description "Expand Emmet snippet."))
 

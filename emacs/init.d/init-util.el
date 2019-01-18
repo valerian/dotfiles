@@ -1,3 +1,16 @@
+;; cheat sheet
+(req-package cheatsheet
+  :config
+  (global-set-key (kbd "<f1>") 'cheatsheet-show)
+  (define-key cheatsheet-mode-map (kbd "<f1>") 'kill-buffer-and-window)
+  (define-key cheatsheet-mode-map (kbd "C-g") 'kill-buffer-and-window)
+  (cheatsheet-add :group "Utils" :key "C-S-<left>" :description "Previous buffer.")
+  (cheatsheet-add :group "Utils" :key "C-S-<right>" :description "Next buffer.")
+  (cheatsheet-add :group "Utils" :key "M-x m" :description "Toggle xterm mouse mode.")
+  (cheatsheet-add :group "Core" :key "M-<up>" :description "Move region or current line up.")
+  (cheatsheet-add :group "Core" :key "M-<down>" :description "Move region or current line down.")
+)
+
 ;; smart-mode-line
 (req-package smart-mode-line
   :defer 1
@@ -86,6 +99,7 @@
 
 ;; undo tree
 (req-package undo-tree
+  :after (cheatsheet)
   :config
   (global-undo-tree-mode)
   (global-set-key (kbd "C-.") 'undo-tree-redo)
@@ -100,6 +114,7 @@
                              (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
                         "d│"))))
 (req-package nlinum
+  :after (cheatsheet)
   :config
   (global-nlinum-mode 1)
   (global-set-key (kbd "C-x l") 'nlinum-mode)
@@ -108,6 +123,7 @@
 
 ;; neotree
 (req-package neotree
+  :after (cheatsheet)
   :defer 1
   :bind ([f8] . neotree-toggle)
   :config
@@ -115,6 +131,7 @@
 
 ;; multiple cursors
 (req-package multiple-cursors
+  :after (cheatsheet)
   :config
   (global-set-key (kbd "C-x C-=") 'mc/edit-lines)
   (global-set-key (kbd "C-=") 'mc/mark-next-like-this-symbol)
@@ -153,9 +170,6 @@
 
 (global-set-key (kbd "M-<up>") 'move-region-up)
 (global-set-key (kbd "M-<down>") 'move-region-down)
-
-(cheatsheet-add :group "Core" :key "M-<up>" :description "Move region or current line up.")
-(cheatsheet-add :group "Core" :key "M-<down>" :description "Move region or current line down.")
 
 (provide 'init-util)
 

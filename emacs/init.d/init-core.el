@@ -1,10 +1,3 @@
-;; cheat sheet
-(req-package cheatsheet
-  :config
-  (global-set-key (kbd "<f1>") 'cheatsheet-show)
-  (define-key cheatsheet-mode-map (kbd "<f1>") 'kill-buffer-and-window)
-  (define-key cheatsheet-mode-map (kbd "C-g") 'kill-buffer-and-window))
-
 ;; prevent backspace issues with xterm
 (keyboard-translate ?\C-h ?\C-?)
 
@@ -91,7 +84,6 @@
 
 ;; toggle xterm mouse mode
 (global-set-key (kbd "C-x m") 'xterm-mouse-mode)
-(cheatsheet-add :group "Utils" :key "M-x m" :description "Toggle xterm mouse mode.")
 
 ;; windmove
 (global-set-key (kbd "C-x <left>")  'windmove-left)
@@ -104,7 +96,5 @@
 (global-set-key (kbd "C-S-<right>") 'next-buffer)
 (global-unset-key (kbd "C-x <C-left>"))
 (global-unset-key (kbd "C-x <C-right>"))
-(cheatsheet-add :group "Utils" :key "C-S-<left>" :description "Previous buffer.")
-(cheatsheet-add :group "Utils" :key "C-S-<right>" :description "Next buffer.")
 
 (provide 'init-core)
