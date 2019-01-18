@@ -97,4 +97,18 @@
 (global-unset-key (kbd "C-x <C-left>"))
 (global-unset-key (kbd "C-x <C-right>"))
 
+;; mouse wheel support
+(defun scroll-up-10-lines ()
+  "Scroll up 10 lines"
+  (interactive)
+  (scroll-up 10))
+
+(defun scroll-down-10-lines ()
+  "Scroll down 10 lines"
+  (interactive)
+  (scroll-down 10))
+
+(global-set-key (kbd "<mouse-4>") 'scroll-down-10-lines) ;
+(global-set-key (kbd "<mouse-5>") 'scroll-up-10-lines) ;
+
 (provide 'init-core)
