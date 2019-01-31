@@ -127,7 +127,6 @@
             (lambda ()
               (setq-default scss-compile-at-save nil)
               (electric-pair-mode +1)
-              (electric-layout-mode +1)
               (company-mode +1)
               (add-to-list 'write-file-functions 'delete-trailing-whitespace))))
 
@@ -138,6 +137,9 @@
 ;; php
 (req-package php-mode
   :mode ("\\.php\\'" . php-mode))
+(add-hook 'php-mode-hook
+          (lambda ()
+            (define-key php-mode-map (kbd "C-.") nil)))
 
 ;; yaml
 (req-package yaml-mode

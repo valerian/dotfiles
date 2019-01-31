@@ -37,6 +37,9 @@
 ;; replace yes-no prompts with y-n
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; tabs are displayd as 4 spaces length
+(setq-default tab-width 4)
+
 ;; display column number on status bar
 (column-number-mode t)
 
