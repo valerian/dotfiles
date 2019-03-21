@@ -165,5 +165,27 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
+;; Csharp
+(req-package csharp-mode
+  :mode ("\\.cs\\'" . csharp-mode)
+  :after (company omnisharp flycheck)
+  :config
+  (add-hook 'csharp-mode-hook
+            (lambda ()
+              (add-to-list 'company-backends #'company-omnisharp)
+              (omnisharp-mode +1)
+              (company-mode +1)
+              (flycheck-mode +1))))
+(req-package omnisharp
+  :mode ("\\.csproj\\'" . omnisharp-mode)
+  :config
+  (if (eq system-type 'cygwin)
+      (setq omnisharp-server-executable-path "/cygdrive/c/Bin/omnisharp-mono/run.sh"))
+      ;;#!/bin/sh
+      ;;exec /cygdrive/c/Program\ Files/Unity/Editor/Data/MonoBleedingEdge/bin/mono.exe "C:\\Bin\\omnisharp-mono\\OmniSharp.exe" "$@"
+  (add-hook 'csharp-mode-hook
+            (lambda ()
+              (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
+              (local-set-key (kbd "C-c C-c") 'recompile))))
 
 (provide 'init-code)

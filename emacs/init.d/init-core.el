@@ -59,6 +59,9 @@
 ;; highlight matching parentheses
 (show-paren-mode 1)
 
+;; no comfirmation prompt when closing running process
+(setq confirm-kill-processes nil)
+
 ;; kill current buffer
 (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
 
