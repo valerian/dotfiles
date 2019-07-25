@@ -130,6 +130,16 @@
               (company-mode +1)
               (add-to-list 'write-file-functions 'delete-trailing-whitespace))))
 
+;; Vue JS
+(req-package vue-mode
+  :mode ("\\.vue\\'" . vue-mode)
+  :config
+  (add-hook 'mmm-mode-hook
+            (lambda ()
+              (emmet-mode +1)
+              (company-mode +1)
+              (set-face-background 'mmm-default-submode-face nil))))
+
 ;; Python
 (req-package python-mode
   :mode ("\\.py\\'" . python-mode))
