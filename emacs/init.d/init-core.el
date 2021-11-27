@@ -37,6 +37,9 @@
 ;; replace yes-no prompts with y-n
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; tabs are displayd as 4 spaces length
+(setq-default tab-width 4)
+
 ;; display column number on status bar
 (column-number-mode t)
 
@@ -55,6 +58,9 @@
 
 ;; highlight matching parentheses
 (show-paren-mode 1)
+
+;; no comfirmation prompt when closing running process
+(setq confirm-kill-processes nil)
 
 ;; kill current buffer
 (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
@@ -96,5 +102,19 @@
 (global-set-key (kbd "C-S-<right>") 'next-buffer)
 (global-unset-key (kbd "C-x <C-left>"))
 (global-unset-key (kbd "C-x <C-right>"))
+
+;; mouse wheel support
+(defun scroll-up-10-lines ()
+  "Scroll up 10 lines"
+  (interactive)
+  (scroll-up 10))
+
+(defun scroll-down-10-lines ()
+  "Scroll down 10 lines"
+  (interactive)
+  (scroll-down 10))
+
+(global-set-key (kbd "<mouse-4>") 'scroll-down-10-lines) ;
+(global-set-key (kbd "<mouse-5>") 'scroll-up-10-lines) ;
 
 (provide 'init-core)

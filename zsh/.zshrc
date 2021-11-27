@@ -29,7 +29,13 @@ bindkey "\eOF" end-of-line
 #prompt adam1
 
 autoload -U colors && colors
-PS1="%{$fg[red]%}%n%{$reset_color%}@%{$fg[cyan]%}%m %{$fg[yellow]%}%~ %{$reset_color%}%\> "
+if [ $USER = 'root' ]
+then
+    PS1="%{$fg[white]%}%{$bg[red]%}%n%{$fg[black]%}@%{$fg[black]%}%m %{$fg[white]%}%~ %{$reset_color%}%\> "
+else
+    PS1="%{$fg[red]%}%n%{$reset_color%}@%{$fg[cyan]%}%m %{$fg[yellow]%}%~ %{$reset_color%}%\> "
+fi
+
 
 setopt histignorealldups sharehistory
 
@@ -103,6 +109,7 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias gni='grep -rni'
+alias gn='grep -rn'
 
 alias ls='ls --color=auto'
 alias ll='ls -l'

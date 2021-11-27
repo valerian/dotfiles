@@ -128,9 +128,18 @@
             (lambda ()
               (setq-default scss-compile-at-save nil)
               (electric-pair-mode +1)
-              (electric-layout-mode +1)
               (company-mode +1)
               (add-to-list 'write-file-functions 'delete-trailing-whitespace))))
+
+;; Vue JS
+(req-package vue-mode
+  :mode ("\\.vue\\'" . vue-mode)
+  :config
+  (add-hook 'mmm-mode-hook
+            (lambda ()
+              (emmet-mode +1)
+              (company-mode +1)
+              (set-face-background 'mmm-default-submode-face nil))))
 
 ;; Python
 (req-package python-mode
@@ -139,6 +148,9 @@
 ;; php
 (req-package php-mode
   :mode ("\\.php\\'" . php-mode))
+(add-hook 'php-mode-hook
+          (lambda ()
+            (define-key php-mode-map (kbd "C-.") nil)))
 
 ;; yaml
 (req-package yaml-mode
@@ -152,10 +164,39 @@
 (add-hook 'paradox-mode-hook
           (lambda ()
             (company-mode +1)))
-
 (req-package smali-mode
   :ensure f
   :mode ("\\.smali\\'" . smali-mode))
 
+;; Markdown
+(req-package markdown-mode
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+
+;; Csharp
+(req-package csharp-mode
+  :mode ("\\.cs\\'" . csharp-mode)
+  :after (company omnisharp flycheck)
+  :config
+  (add-hook 'csharp-mode-hook
+            (lambda ()
+              (add-to-list 'company-backends #'company-omnisharp)
+              (omnisharp-mode +1)
+              (company-mode +1)
+              (flycheck-mode +1))))
+(req-package omnisharp
+  :mode ("\\.csproj\\'" . omnisharp-mode)
+  :config
+  (if (eq system-type 'cygwin)
+      (setq omnisharp-server-executable-path "/cygdrive/c/Bin/omnisharp-mono/run.sh"))
+      ;;#!/bin/sh
+      ;;exec /cygdrive/c/Program\ Files/Unity/Editor/Data/MonoBleedingEdge/bin/mono.exe "C:\\Bin\\omnisharp-mono\\OmniSharp.exe" "$@"
+  (add-hook 'csharp-mode-hook
+            (lambda ()
+              (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
+              (local-set-key (kbd "C-c C-c") 'recompile))))
 
 (provide 'init-code)

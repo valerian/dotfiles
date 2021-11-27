@@ -31,8 +31,14 @@
   :config
   (volatile-highlights-mode 1))
 
+;; smex
+(req-package smex
+  :config
+  (smex-initialize))
+
 ;; ivy mode
 (req-package ivy
+  :after smex
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
@@ -50,14 +56,22 @@
   )
 
 ;; projectile mode
+(setq projectile-ignored-extension-list
+      '("editorconfig" "eslintignore" "eslintrc" "git" "gitignore" "projectile" "sailsrc" "tern-port"
+        "tern-project" "tmp" "meta" "png" "jpg" "tga" "ttf" "TTF" "asset"))
+(setq projectile-ignored-path-list
+      '("Assets/PostProcessing/" "Assets/Plugins/"))
 (req-package projectile
   :after (ivy)
   :config
   (setq projectile-indexing-method 'hybrid)
-  (setq projectile-globally-ignored-files
-        '(".editorconfig" ".eslintignore" ".eslintrc" ".git" ".gitignore"
-          ".projectile" ".sailsrc" ".tern-port" ".tern-project" ".tmp"
-          "README.md" "package.json" "package-lock.json"))
+  (setq projectile-git-command
+        (concat
+         "git ls-files -zco --exclude-standard | sed -r 's/[^\\x0]*?\\.("
+         (string-join projectile-ignored-extension-list "|")
+         ")\\x0//g' | sed -r 's/($|\\x0)("
+         (replace-regexp-in-string "/" "\\\\/" (string-join projectile-ignored-path-list "|"))
+         ")[^\\x0]*//g'"))
   (projectile-mode 1)
   (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
@@ -122,12 +136,29 @@
   (add-hook 'nlinum-mode-hook #'my-nlinum-mode-hook))
 
 ;; neotree
+(defun neotree-project-dir ()
+  "Open NeoTree using the git root."
+  (interactive)
+  (let ((project-dir (projectile-project-root))
+        (file-name (buffer-file-name)))
+    (neotree-toggle)
+    (if project-dir
+        (if (neo-global--window-exists-p)
+            (progn
+              (neotree-dir project-dir)
+              (neotree-find file-name)))
+      (message "Could not find project root."))))
 (req-package neotree
-  :after (cheatsheet)
+  :after (cheatsheet projectile)
   :defer 1
-  :bind ([f8] . neotree-toggle)
+  :bind (([f8] . neotree-toggle)
+         ([f9] . neotree-project-dir))
   :config
-  (cheatsheet-add :group "Utils" :key "[f8]" :description "Toggle neotree side menu."))
+  (setq neo-window-width 40)
+  (setq projectile-switch-project-action 'neotree-projectile-action)
+  (setq neo-hidden-regexp-list '("^\\." "\\.meta$" "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.o$"))
+  (cheatsheet-add :group "Utils" :key "[f8]" :description "Toggle neotree side menu.")
+  (cheatsheet-add :group "Utils" :key "[f9]" :description "Toggle neotree side menu, with projectile's project root."))
 
 ;; multiple cursors
 (req-package multiple-cursors
