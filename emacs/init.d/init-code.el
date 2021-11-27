@@ -58,17 +58,12 @@
             (define-key js2-refactor-mode-map (kbd "C-x C-r") 'js2r-rename-var)
             (cheatsheet-add :group "Javascript" :key "C-x C-r" :description "Refactor rename variable.")
             (js2r-add-keybindings-with-prefix "C-c C-r")
-            (add-to-list 'company-backends 'company-tern)
-            (tern-mode)
             (company-mode)
             (electric-pair-mode +1)
             ))
 (req-package js2-refactor
   :defer 1
   :after js2-mode)
-(req-package company-tern
-  :defer t
-  :after company)
 
 ;; Javascript: React
 (req-package rjsx-mode
@@ -76,8 +71,6 @@
 (add-hook 'rjsx-mode-hook
           (lambda ()
             (emmet-mode +1)
-            (add-to-list 'company-backends 'company-tern)
-            (tern-mode)
             (company-mode)
             (electric-pair-mode +1)
             ))
@@ -88,18 +81,26 @@
   :mode ("\\.ts\\'" . typescript-mode))
 (req-package tide
   :after (typescript-mode company))
-(add-hook 'typescript-mode-hook
+
+(defun setup-tide-mode ()
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  ;(electric-pair-mode +1)
+  (electric-layout-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1)
+  (add-to-list 'write-file-functions 'delete-trailing-whitespace)
+  (global-set-key (kbd "M-;") 'tide-rename-symbol))
+
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+(add-hook 'web-mode-hook
           (lambda ()
-            (tide-setup)
-            (flycheck-mode +1)
-            (setq flycheck-check-syntax-automatically '(save mode-enabled))
-            (eldoc-mode +1)
-            ;(electric-pair-mode +1)
-            (electric-layout-mode +1)
-            (tide-hl-identifier-mode +1)
-            (company-mode +1)
-            (add-to-list 'write-file-functions 'delete-trailing-whitespace)
-            (global-set-key (kbd "M-;") 'tide-rename-symbol)))
+            (when (string-equal "tsx" (file-name-extension buffer-file-name))
+              (setup-tide-mode))))
+
 (custom-set-variables
  '(typescript-indent-level 2))
 (setq tide-format-options

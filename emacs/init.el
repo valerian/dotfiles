@@ -1,3 +1,5 @@
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 ;; load path
 (add-to-list 'load-path (expand-file-name "init.d/" (file-name-directory load-file-name)))
 
